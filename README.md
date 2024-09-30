@@ -1,5 +1,8 @@
 # OCR Project  and Keyword Search
 
+# Streamlit link
+https://eng-hindiocr.streamlit.app/
+
 ## Overview
 This project implements an Optical Character Recognition (OCR) system specifically designed for recognizing English and Hindi Devanagari characters. By utilizing the pre-trained **GOT-OCR2.0** model from Hugging Face's Transformers library, we can effectively recognize and classify images of Devanagari text. The project also features a keyword search functionality that allows users to search for specific terms in the OCR outputs.
 
