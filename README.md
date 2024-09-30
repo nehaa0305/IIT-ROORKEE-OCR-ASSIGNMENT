@@ -66,3 +66,18 @@ The keyword search feature allows users to input keywords and find matches withi
 Prepare the Dataset: Organize your dataset in the specified directory structure.
 Run the Training Script: Execute your training script to train the model.
 Keyword Search: Use the provided function to search for keywords in the model's predictions.
+
+## Result
+![Alt text](1.png)
+
+
+![Alt text](2.png)
+
+
+![Alt text](3.png)
+
+
+![Alt text](4.png)
+
+
+![Alt text](5.png)
