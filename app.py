@@ -1,29 +1,26 @@
 import os
-os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"  # Import necessary libraries
+os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"# Import necessary libraries
 import streamlit as st
 from PIL import Image
 import pytesseract as pt
 
-# Function for performing OCR
+
 def perform_ocr(image):
-    # Specify both Hindi and English languages for OCR
+   
     text = pt.image_to_string(image, lang="hin+eng")
     return text
 
-# Function to extract keywords from the extracted text
+
 def extract_keywords(text, keywords):
     keyword_matches = []
     for keyword in keywords:
-        if keyword.lower() in text.lower():  # Case insensitive match
+        if keyword in text:
             keyword_matches.append(keyword)
     return keyword_matches
 
-# Streamlit application
-def main():
-    # Set page configuration
-    st.set_page_config(page_title="OCR Text Extraction and Keyword Search", layout="wide")
 
-    # Custom CSS for styling
+def main():
+    st.title("OCR Text Extraction and Keyword Search")
     st.markdown("""
         <style>
             body {
@@ -70,36 +67,27 @@ def main():
         </style>
     """, unsafe_allow_html=True)
 
-    # Add a custom title with styling
-    st.markdown("<h1>OCR Text Extraction and Keyword Search</h1>", unsafe_allow_html=True)
-    
-    # Add some introductory text
-    st.markdown("<p class='header'>Upload an image to extract text and search for keywords!</p>", unsafe_allow_html=True)
-
-    # File uploader for image upload
     uploaded_file = st.file_uploader("Upload an image file for OCR processing", type=["jpg", "jpeg", "png"])
     
     if uploaded_file is not None:
         # Display the uploaded image
         image = Image.open(uploaded_file)
-        st.image(image, caption="Uploaded Image", use_column_width=True, clamp=True)
+        st.image(image, caption="Uploaded Image", use_column_width=True)
 
-        # Perform OCR on the uploaded image
+       
         extracted_text = perform_ocr(image)
         st.subheader("Extracted Text:")
-        st.text_area("Extracted Text", value=extracted_text, height=200, key="extracted_text")
+        st.text_area("Extracted Text", value=extracted_text, height=200)
 
-        # Keyword input
-        keyword_input = st.text_input("Enter keywords to search (comma separated):", "", key="keyword_input")
+        keyword_input = st.text_input("Enter keywords to search (comma separated):", "")
         
         if st.button("Search Keywords"):
             if keyword_input:
                 keywords = [kw.strip() for kw in keyword_input.split(",")]
                 matches = extract_keywords(extracted_text, keywords)
                 
-                # Display results
                 if matches:
-                    st.markdown("<div class='result'><strong>Found Keywords:</strong> {}</div>".format(', '.join(matches)), unsafe_allow_html=True)
+                    st.success(f"Found Keywords: {', '.join(matches)}")
                 else:
                     st.warning("No keywords found in the extracted text.")
             else:
